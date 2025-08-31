@@ -109,15 +109,14 @@
 <script>
   const content = `Bienvenue chez Triad, vôtre agence artistique gratuite de confiance\nNous sommes là pour vous aider à crée du contenu, ou assurer vôtre liberté artistique, nos services passent également par la création de profile dans des organisations comme la SACEM.\nNôtre systeme complet d'agents et de contrats vous offres une opportunité infinie de vous démarquer, de vous développer et de vous crée une véritable identité au saint de l'industie du showbiz`;
 
-  const cooldownDuration = 90 * 24 * 60 * 60 * 1000; // 90 jours
-  const lastVisitKey = "triad_last_visit";
+  const cooldownDuration = 90 * 24 * 60 * 60 * 1000; // 90 jours en ms
+  const launchDateUTC = Date.UTC(2025, 6, 1, 10, 0, 0); // 1er juillet 2025 à 12h Paris = 10h UTC
   const cooldownMessage = document.getElementById("cooldown-message");
   const textDiv = document.getElementById("text");
 
   function typeWriter() {
     let i = 0;
     const speed = 20;
-
     function write() {
       if (i < content.length) {
         textDiv.innerHTML += content.charAt(i);
@@ -125,7 +124,6 @@
         setTimeout(write, speed);
       }
     }
-
     write();
   }
 
@@ -156,15 +154,8 @@
   }
 
   window.onload = () => {
+    const endTime = launchDateUTC + cooldownDuration;
     const now = Date.now();
-    let lastVisit = localStorage.getItem(lastVisitKey);
-
-    if (!lastVisit) {
-      lastVisit = now;
-      localStorage.setItem(lastVisitKey, lastVisit);
-    }
-
-    const endTime = parseInt(lastVisit) + cooldownDuration;
 
     if (now >= endTime) {
       cooldownMessage.style.display = "none";
