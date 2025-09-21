@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Triad - Candidature Agent</title>
+  <title>Triad - Agent Application</title>
   <style>
     body {
       margin: 0;
@@ -78,22 +78,22 @@
   </pre>
 
   <form id="candidatureForm">
-    <label>Nom :</label>
+    <label>Last Name:</label>
     <input type="text" name="nom" required>
 
-    <label>Prénom :</label>
+    <label>First Name:</label>
     <input type="text" name="prenom" required>
 
-    <label>Âge :</label>
+    <label>Age:</label>
     <input type="number" name="age" required>
 
-    <label>Pseudo Discord :</label>
+    <label>Discord Username:</label>
     <input type="text" name="discord" required>
 
-    <label>Email :</label>
+    <label>Email:</label>
     <input type="email" name="email" required>
 
-    <label>Grade désiré :</label>
+    <label>Desired Rank:</label>
     <select name="grade" required>
       <option value="Agent Triad">Agent Triad</option>
       <option value="OBEX">OBEX</option>
@@ -101,16 +101,16 @@
       <option value="COVENANT-9">COVENANT-9</option>
     </select>
 
-    <label>Motivation :</label>
+    <label>Motivation:</label>
     <textarea name="motivation" rows="3" required></textarea>
 
-    <label>Pourquoi entrer chez Triad :</label>
+    <label>Why join Triad:</label>
     <textarea name="pourquoi" rows="3" required></textarea>
 
-    <label>Expérience :</label>
+    <label>Experience:</label>
     <textarea name="experience" rows="4" required></textarea>
 
-    <button type="submit">[ ENVOYER LA CANDIDATURE ]</button>
+    <button type="submit">[ SUBMIT APPLICATION ]</button>
   </form>
 
   <div id="confirmation"></div>
@@ -132,7 +132,7 @@
       const experience = e.target.experience.value;
 
       const payload = {
-        content: `📋 Nouvelle candidature Triad\n👤 Nom: **${prenom} ${nom}**\n🎂 Âge: **${age}**\n💬 Discord: **${discord}**\n📧 Email: **${email}**\n🎖️ Grade désiré: **${grade}**\n\n📝 Motivation:\n*${motivation}*\n\n❓ Pourquoi Triad:\n*${pourquoi}*\n\n📚 Expérience:\n*${experience}*`
+        content: `📋 New Triad Application\n👤 Name: **${prenom} ${nom}**\n🎂 Age: **${age}**\n💬 Discord: **${discord}**\n📧 Email: **${email}**\n🎖️ Desired Rank: **${grade}**\n\n📝 Motivation:\n*${motivation}*\n\n❓ Why Triad:\n*${pourquoi}*\n\n📚 Experience:\n*${experience}*`
       };
 
       fetch(webhookURL, {
@@ -144,20 +144,19 @@
       })
       .then(response => {
         if (response.ok) {
-          document.getElementById("confirmation").textContent = "0 - Vôtre demande est en cours de traitement, merci de checker vos mails dans les 48h.";
+          document.getElementById("confirmation").textContent = "0 - Your application is being processed. Please check your email within 48 hours.";
           e.target.reset();
         } else {
-          document.getElementById("confirmation").textContent = "1 - Envois impossible..";
+          document.getElementById("confirmation").textContent = "1 - Submission failed.";
         }
       })
       .catch(error => {
-        console.error("Erreur:", error);
-        document.getElementById("confirmation").textContent = "404 - Réseau surcharger ou indisponible.";
+        console.error("Error:", error);
+        document.getElementById("confirmation").textContent = "404 - Network overloaded or unavailable.";
       });
     });
   </script>
 
-  
   <style>
     .footer {
       position: absolute;

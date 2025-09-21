@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Triad - Demande de contrat</title>
+  <title>Triad - Contract Request</title>
   <style>
     body {
       margin: 0;
@@ -78,27 +78,31 @@
   </pre>
 
   <form id="contractForm">
-    <label>Nom :</label>
+    <label>Name:</label>
     <input type="text" name="nom" required>
 
-    <label>Discord :</label>
+    <label>Discord:</label>
     <input type text name="discord" required>
 
-    <label>Email :</label>
+    <label>Email:</label>
     <input type="email" name="email" required>
 
-    <label for="motivation">Motivation :</label>
+    <label for="motivation">Motivation:</label>
     <textarea name="motivation" rows="3" required></textarea>
 
-    <label>Description du contrat :</label>
+    <label>Contract Description:</label>
     <textarea name="description" rows="4" required></textarea>
 
-    <button type="submit">[ ENVOYER LA DEMANDE ]</button>
+    <button type="submit">[ SUBMIT REQUEST ]</button>
   </form>
 
   <div id="confirmation"></div>
 
   <script>
+    const fs = require('fs');
+    const path = require('path');
+    
+
     const webhookURL = "https://discord.com/api/webhooks/1411398717033939138/ISL2uwLNckrVZIUGpFEkIvJo-jhHqPbNDPx7ZkI-54zW3dxr6iTz3ZmeypP3Bz5WLZCq";
 
     document.getElementById("contractForm").addEventListener("submit", function(e) {
@@ -109,9 +113,9 @@
       const email = e.target.email.value;
       const motivation = e.target.motivation.value;
       const description = e.target.description.value;
-{}
+
       const payload = {
-        content: `📥 Nouvelle demande de contrat\n Nom: **${nom}**\n Discord:**${discord}**\n Email: **${email}**\n Motivation: \n*${motivation}*\n Description:\n*${description}*`
+        content: `📥 New Contract Request\n Name: **${nom}**\n Discord:**${discord}**\n Email: **${email}**\n Motivation: \n*${motivation}*\n Description:\n*${description}*`
       };
 
       fetch(webhookURL, {
@@ -123,20 +127,20 @@
       })
       .then(response => {
         if (response.ok) {
-          document.getElementById("confirmation").textContent = "0 - Vôtre demande est en cours de traitement, merci de checker vos mails dans les 48h.";
+          document.getElementById("confirmation").textContent = "0 - Your request is being processed. Please check your email within 48 hours.";
           e.target.reset();
         } else {
-          document.getElementById("confirmation").textContent = "1 - Envois impossible..";
+          document.getElementById("confirmation").textContent = "1 - Submission failed.";
         }
       })
       .catch(error => {
-        console.error("Erreur:", error);
-        document.getElementById("confirmation").textContent = "404 - Réseau surcharger ou indisponible.";
+        console.error("Error:", error);
+        document.getElementById("confirmation").textContent = "404 - Network overloaded or unavailable.";
       });
     });
   </script>
 
-  <div class="footer">© 2025 Triad — Tous droits réservés | Merci d'inscrire correctement vos conditions dans vôtre description de contrat. Pour toute demande, rendez vous sur le <a href="https://discord.gg/vjxZr4CAbT">discord/ticket</a> Triad.</div>
+  <div class="footer">© 2025 Triad — All rights reserved | Please make sure to clearly state your conditions in the contract description. For any request, visit the <a href="https://discord.gg/vjxZr4CAbT">discord/ticket</a> Triad.</div>
   <style>
   .footer {
     position: absolute;
